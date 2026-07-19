@@ -1,0 +1,31 @@
+# config reference (config.py is the real source of truth)
+
+model:
+  name: google/gemma-2b-it
+  params: 2 billion
+  instruction_tuned: true
+
+dataset:
+  name: gbharti/finance-alpaca
+  size: ~68900 pairs
+  test_size: 0.2
+  seed: 42
+
+lora:
+  r: 16
+  alpha: 32
+  dropout: 0.05
+  target_modules: [q_proj, k_proj, v_proj, o_proj]
+
+training:
+  epochs: 3
+  batch_size: 4
+  grad_accum: 4
+  learning_rate: 0.0002
+  max_seq_length: 512
+
+generation:
+  temperature: 0.7
+  max_new_tokens: 150
+
+metrics: [perplexity, bleu, llm_as_a_judge]
