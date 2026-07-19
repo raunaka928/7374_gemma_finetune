@@ -44,8 +44,8 @@ Requirements: Python 3.10+, NVIDIA GPU with 12GB+ VRAM, Hugging Face account wit
 
 1. Clone the repo:
 ```bash
-git clone https://github.com/YOUR_USERNAME/financial-sentiment-generation.git
-cd financial-sentiment-generation
+git clone https://github.com/raunaka928/7374_gemma_finetune.git
+cd 7374_gemma_finetune
 ```
 
 2. Install dependencies:
