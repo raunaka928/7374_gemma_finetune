@@ -22,7 +22,22 @@ from utils.helpers import (
 
 
 def load_sample_prompts(num_samples):
-    # use the prepared eval prompts if they exist, otherwise use built-in ones
+    # Step 1 of the pipeline: load and process the dataset.
+    # Evaluation prompts are drawn from the held-out test split of
+    # Financial-Alpaca. If they haven't been prepared yet, we load and
+    # process the dataset now (download -> format -> 80/20 split -> write
+    # eval_prompts.json). The built-in list is a last-resort fallback used
+    # only if the dataset can't be reached (e.g. no network).
+    if not os.path.exists(EVAL_PROMPTS_PATH):
+        try:
+            from data.load_dataset import load_and_prepare
+            print("No prepared eval prompts found - loading and processing "
+                  "the dataset (first run downloads ~200MB)...")
+            load_and_prepare()  # writes EVAL_PROMPTS_PATH as a side effect
+        except Exception as e:
+            print(f"Could not load dataset ({e}); "
+                  f"falling back to built-in prompts.")
+
     if os.path.exists(EVAL_PROMPTS_PATH):
         with open(EVAL_PROMPTS_PATH) as f:
             return json.load(f)["prompts"][:num_samples]
