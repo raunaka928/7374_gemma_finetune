@@ -93,7 +93,17 @@ python src/model_runner.py --finetuned   # final samples
 | BLEU | output similarity to reference answers | +8 points |
 | LLM-as-a-judge | which model's answers are better | ≥65% win rate |
 
-## Notes / Known Issues
 
-- The `trl` library API changed in v0.12+. `requirements.txt` pins `trl==0.9.6` so the training script runs as written.
-- Model knowledge is limited to the dataset's cutoff; it may occasionally state incorrect specific figures.
+## Preliminary Results
+
+We ran the base Gemma-2B-it model on 10 samples drawn from the Financial-Alpaca test set before any fine-tuning. The model produced fluent, well-structured responses and demonstrated general instruction-following ability — formatting lists, using bold headers, and completing prompts coherently.
+
+However, the base model showed clear limitations on financial topics. On the 401k stock options prompt, the model referenced a non-existent "Form 89-RS" — a hallucinated tax form — illustrating the factual gaps that domain fine-tuning targets. On the investing methods prompt, responses were generic and surface-level, lacking the market reasoning and sentiment analysis that Financial-Alpaca is designed to teach.
+
+Generated samples are saved in `outputs/samples.txt` and `outputs/samples.json`.
+
+## Known Issues / Limitations
+- **trl version:** The `trl` library API changed in v0.12+. `requirements.txt` pins `trl==0.9.6` so the training script runs as written.
+- **Base model hallucinations:** The base model occasionally fabricates specific financial details (e.g. non-existent regulatory forms). This is the primary motivation for fine-tuning.
+- **Mixed dataset content:** Financial-Alpaca contains general instruction-following examples alongside financial ones. The fine-tuned model is evaluated on the same prompts for a fair comparison.
+- **Hardware requirement:** Full fine-tuning requires a GPU with 12GB+ VRAM. Inference alone runs on a T4 (15.6GB).
