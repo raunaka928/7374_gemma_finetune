@@ -1,0 +1,8 @@
+{
+  "baseline_perplexity": 33.33035290446559,
+  "finetuned_perplexity": 6.572033893560831,
+  "perplexity_reduction_pct": 80.28213528852162,
+  "baseline_bleu": 6.417092806281234,
+  "finetuned_bleu": 8.222921703709083,
+  "bleu_improvement": 1.8058288974278494
+}

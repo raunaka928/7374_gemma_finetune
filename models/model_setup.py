@@ -10,7 +10,7 @@ def get_bnb_config():
     return BitsAndBytesConfig(
         load_in_4bit=True,
         bnb_4bit_quant_type="nf4",
-        bnb_4bit_compute_dtype=torch.bfloat16,
+        bnb_4bit_compute_dtype=torch.float16,
         bnb_4bit_use_double_quant=True,
     )
 
@@ -29,7 +29,7 @@ def load_base_model_for_inference(model_name, hf_token):
         quantization_config=get_bnb_config(),
         device_map="auto",
         token=hf_token,
-        torch_dtype=torch.bfloat16,
+        torch_dtype=torch.float16,
     )
     model.eval()
     return model
@@ -42,7 +42,7 @@ def load_model_for_training(model_name, hf_token, lora_params):
         quantization_config=get_bnb_config(),
         device_map="auto",
         token=hf_token,
-        torch_dtype=torch.bfloat16,
+        torch_dtype=torch.float16,
     )
     model = prepare_model_for_kbit_training(model)
 
@@ -66,7 +66,7 @@ def load_finetuned_model(base_model_name, adapter_path, hf_token):
         quantization_config=get_bnb_config(),
         device_map="auto",
         token=hf_token,
-        torch_dtype=torch.bfloat16,
+        torch_dtype=torch.float16,
     )
     model = PeftModel.from_pretrained(base, adapter_path)
     model.eval()

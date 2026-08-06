@@ -47,7 +47,7 @@ def main():
         learning_rate=LEARNING_RATE,
         warmup_ratio=WARMUP_RATIO,
         lr_scheduler_type=LR_SCHEDULER,
-        bf16=True,
+        fp16=True,
         gradient_checkpointing=True,
         gradient_checkpointing_kwargs={"use_reentrant": False},
         logging_steps=LOGGING_STEPS,
