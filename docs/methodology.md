@@ -4,11 +4,10 @@
 
 ## Task
 
-Given a financial question or headline, generate a short response (2-5 sentences) that identifies the sentiment and explains the market implications using correct financial terms.
-
+Given a financial question or headline, generate a short response (2-5 sentences) that answers the question using correct financial terminology and domain-appropriate reasoning.
 ## Model
 
-Gemma-2B-it, fine-tuned with QLoRA. The base model is loaded in 4-bit to save memory, and we add LoRA adapters to the attention layers (q_proj, k_proj, v_proj, o_proj) with rank 16. Only about 1% of the parameters get trained.
+Gemma-2B-it, fine-tuned with QLoRA. The base model is loaded in 4-bit to save memory, and we add LoRA adapters to the attention layers (q_proj, k_proj, v_proj, o_proj) with rank 16. Only 0.147% of the parameters get trained (3,686,400 of 2,509,858,816).
 
 ## Dataset
 
